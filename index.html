@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f1e8">
+<meta name="description" content="A flexible, editorial French immersion tracker from A1 to B2.">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Français — Immersion Tracker</title>
+<style>
+:root{--paper:#f5f1e8;--ink:#252720;--muted:#77776d;--line:#dcd6c9;--red:#b64e3d;--green:#456b59;--blue:#526c83;--card:#fffdf8;--serif:Georgia,'Times New Roman',serif;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.45}button,input,textarea,select{font:inherit}button{cursor:pointer}.shell{max-width:1080px;margin:auto;padding:22px 22px 80px}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:7px 0 18px}.brand{font-family:var(--serif);font-size:27px;letter-spacing:-1.2px}.brand small{display:block;font:10px var(--sans);letter-spacing:2px;color:var(--muted);margin-top:1px}.topright{font-size:12px;color:var(--muted)}.hero{padding:42px 0 30px;display:grid;grid-template-columns:1.3fr .7fr;gap:28px;align-items:end}.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700}.hero h1{font:clamp(38px,6vw,66px)/.98 var(--serif);letter-spacing:-2.5px;margin:12px 0 14px;max-width:650px}.hero p{color:#62635b;max-width:570px;margin:0;font-size:15px}.hero-stat{border-left:1px solid var(--line);padding:8px 0 8px 25px}.big{font:48px var(--serif)}.statlabel{font-size:11px;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase}.nav{display:flex;gap:7px;overflow:auto;padding:12px 0 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper);z-index:5}.nav button{border:1px solid transparent;background:transparent;padding:9px 13px;border-radius:30px;color:#686960;font-size:12px;white-space:nowrap}.nav button.active{background:var(--ink);color:#fff}.section{display:none;padding-top:27px}.section.active{display:block}.sectionhead{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:19px}.sectionhead h2{font:34px var(--serif);letter-spacing:-1px;margin:3px 0}.sectionhead p{margin:0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:19px}.card h3{font:23px var(--serif);margin:0 0 6px}.muted{color:var(--muted);font-size:12px}.pills{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.pill{border:1px solid var(--line);background:transparent;padding:8px 12px;border-radius:30px;font-size:12px;color:#55574f}.pill.selected{background:#e9e2d4;border-color:#b9ad98;color:var(--ink)}.activity{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-top:1px solid #eee9df}.activity input{accent-color:var(--green);margin-top:4px;width:17px;height:17px}.activity strong{display:block;font-size:13px}.activity small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.btn{border:0;background:var(--ink);color:white;padding:10px 15px;border-radius:7px;font-size:12px}.btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.red{background:var(--red)}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.progress{height:7px;background:#e9e4d9;border-radius:10px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:var(--green);width:0;transition:width .2s}.metricrow{display:flex;justify-content:space-between;font-size:12px}.input,textarea,select{width:100%;border:1px solid var(--line);background:#fffefa;border-radius:7px;padding:10px 11px;color:var(--ink);font-size:13px;margin:5px 0 11px}textarea{min-height:90px;resize:vertical}.label{font-size:11px;color:var(--muted);display:block;margin-top:8px}.link{color:var(--red);text-decoration:none;font-size:12px;font-weight:650}.link:hover{text-decoration:underline}.steps{counter-reset:step}.step{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:13px 0;border-top:1px solid #eee9df}.step:before{counter-increment:step;content:counter(step);width:25px;height:25px;border-radius:50%;background:#eee8dc;display:grid;place-items:center;font:14px var(--serif)}.step strong{font-size:13px}.step p{margin:3px 0 0;color:var(--muted);font-size:12px}.word{padding:13px 0;border-top:1px solid #eee9df;display:flex;justify-content:space-between;gap:12px}.word strong{font:18px var(--serif)}.tag{font-size:10px;color:var(--green);background:#eaf0e9;padding:4px 7px;border-radius:20px;height:max-content}.road{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.phase{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:15px}.phase .level{font:30px var(--serif)}.phase h3{font:19px var(--serif);margin:5px 0}.phase p,.phase li{font-size:11px;color:var(--muted)}.phase ul{padding-left:17px}.phase.current{border-color:var(--red);box-shadow:inset 0 3px var(--red)}.notice{background:#f0e9dc;padding:12px 14px;border-radius:8px;font-size:12px;color:#60594d;margin-top:12px}.empty{font-size:12px;color:var(--muted);padding:15px 0}.footer{border-top:1px solid var(--line);margin-top:35px;padding-top:15px;color:var(--muted);font-size:10px;display:flex;justify-content:space-between;gap:12px}.streak{font:29px var(--serif)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:10px 16px;border-radius:30px;font-size:12px;opacity:0;transition:opacity .2s;pointer-events:none}.toast.show{opacity:1}
+@media(max-width:720px){.shell{padding:14px 15px 55px}.hero{grid-template-columns:1fr;padding:30px 0 20px;gap:17px}.hero-stat{border-left:0;border-top:1px solid var(--line);padding:14px 0 0;display:flex;align-items:center;gap:12px}.big{font-size:36px}.grid{grid-template-columns:1fr}.road{grid-template-columns:repeat(2,1fr)}.sectionhead{align-items:start;flex-direction:column}.topright{font-size:10px}}
+@media(max-width:390px){.road{grid-template-columns:1fr}.hero h1{font-size:43px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top"><div class="brand">français.<small>THE IMMERSION JOURNAL</small></div><div class="topright">A PERSONAL A1 → B2 PRACTICE SYSTEM</div></header>
+<section class="hero"><div><div class="eyebrow">Your language, in progress</div><h1>Make French part<br>of your everyday.</h1><p>A flexible learning companion. Choose the time and energy you have today; keep moving toward independent, confident French.</p></div><div class="hero-stat"><div class="big" id="totalMinutes">0</div><div><div class="statlabel">Minutes logged</div><div class="muted">Your learning adds up.</div></div></div></section>
+<nav class="nav" aria-label="Main navigation">
+<button class="active" data-tab="today">Today</button><button data-tab="tv5">TV5MONDE method</button><button data-tab="speaking">Speaking</button><button data-tab="vocab">Vocabulary</button><button data-tab="roadmap">A1 → B2 roadmap</button><button data-tab="history">Progress</button>
+</nav>
+
+<main>
+<section class="section active" id="today">
+<div class="sectionhead"><div><div class="eyebrow">Flexible daily planner</div><h2>What can you do today?</h2><p>No fixed weekdays. Pick a session that fits your day.</p></div><div class="streak"><span id="streak">0</span> <span class="muted">day streak</span></div></div>
+<div class="grid">
+<div class="card"><h3>Choose your pace</h3><p class="muted">A small session counts. The goal is consistency, not perfection.</p>
+<div class="pills" id="modes"><button class="pill selected" data-mode="light">Light · 5–10 min</button><button class="pill" data-mode="standard">Standard · ~20 min</button><button class="pill" data-mode="intensive">Intensive · 30–45 min</button></div>
+<div class="metricrow"><strong id="modeTitle">Light day</strong><span id="modeTime" class="muted">5–10 minutes</span></div>
+<div id="tasks"></div>
+<div class="btnrow"><button class="btn" id="finishSession">Log completed activities</button><button class="btn secondary" id="clearChecks">Clear checks</button></div>
+<div class="notice">Busy day? Do your Duolingo lesson and one short TV5MONDE listening exercise. That is a valid light session.</div>
+</div>
+<div class="card"><h3>Daily Duolingo</h3><p class="muted">Keep grammar and vocabulary ticking over every day.</p>
+<div class="metricrow"><span>Today's lesson</span><strong id="duoStatus">Not logged</strong></div><div class="progress"><span id="duoBar"></span></div>
+<label class="label">Minutes spent</label><input class="input" id="duoMinutes" type="number" min="0" max="180" placeholder="e.g. 7">
+<button class="btn" id="logDuo">Log today's Duolingo</button>
+<p class="muted" style="margin-top:12px">Use Duolingo as your grammar and vocabulary supplement, not your main source of French input.</p>
+<hr style="border:0;border-top:1px solid var(--line);margin:17px 0">
+<h3>Quick log</h3><p class="muted">Record extra listening, reading or speaking whenever it happens.</p>
+<label class="label">Activity</label><select class="input" id="quickType"><option>French listening</option><option>Speaking</option><option>Reading</option><option>Writing</option><option>TV5MONDE</option><option>Other immersion</option></select>
+<label class="label">Minutes</label><input class="input" id="quickMinutes" type="number" min="1" max="300" placeholder="e.g. 10">
+<button class="btn secondary" id="quickLog">Add to today's total</button>
+</div>
+</div>
+</section>
+
+<section class="section" id="tv5">
+<div class="sectionhead"><div><div class="eyebrow">Primary learning resource</div><h2>How to use TV5MONDE</h2><p>Turn one short lesson into listening, comprehension and usable language.</p></div><a class="link" href="https://apprendre.tv5monde.com/" target="_blank" rel="noopener">Open TV5MONDE ↗</a></div>
+<div class="grid">
+<div class="card"><h3>The five-step lesson</h3><p class="muted">Use this workflow for an A2 activity. It also works at B1 and B2.</p>
+<div class="steps">
+<div class="step"><div><strong>Listen first — no transcript</strong><p>Watch or listen once. Identify the topic, speakers and general message. Don't pause for every unknown word.</p></div></div>
+<div class="step"><div><strong>Answer the comprehension questions</strong><p>Use what you understood. Guess where necessary; this trains real-time comprehension.</p></div></div>
+<div class="step"><div><strong>Check the transcript</strong><p>Review incorrect answers. Find 3–5 useful words or expressions, not every unfamiliar item.</p></div></div>
+<div class="step"><div><strong>Listen again</strong><p>Replay a short section while following the French text, then listen once more without reading.</p></div></div>
+<div class="step"><div><strong>Produce something</strong><p>Say or write 2–3 original sentences using expressions from the lesson.</p></div></div>
+</div>
+</div>
+<div class="card"><h3>Log a TV5MONDE lesson</h3><p class="muted">Keep a record of what you studied and what needs another pass.</p>
+<label class="label">Lesson title or topic</label><input class="input" id="tvTitle" placeholder="e.g. Se déplacer en ville">
+<label class="label">Level</label><select class="input" id="tvLevel"><option>A2</option><option>B1</option><option>B2</option></select>
+<label class="label">How did it feel?</label><select class="input" id="tvDifficulty"><option>Comfortable — understood most of it</option><option>Challenging — understood the general idea</option><option>Difficult — need to repeat it</option></select>
+<label class="label">New expressions (one per line)</label><textarea id="tvExpressions" placeholder="Je me rends compte que...&#10;Ça dépend de..."></textarea>
+<label class="label">Minutes spent</label><input class="input" id="tvMinutes" type="number" min="1" placeholder="e.g. 15">
+<button class="btn" id="saveTV">Save lesson</button>
+<div id="tvRecent" class="empty">Your saved lessons will appear here.</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="speaking">
+<div class="sectionhead"><div><div class="eyebrow">Active production</div><h2>Find your voice in French.</h2><p>Speak before you feel ready. Fluency grows through retrieval and interaction.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Conversation prompts</h3><p class="muted">Choose a prompt, then open ChatGPT voice mode or another AI tutor.</p>
+<div class="pills" id="promptLevels"><button class="pill selected" data-level="A2">A2</button><button class="pill" data-level="B1">B1</button><button class="pill" data-level="B2">B2</button></div>
+<div id="promptBox" style="font:22px/1.3 var(--serif);padding:12px 0;min-height:90px">Raconte-moi ce que tu as fait hier et ce que tu as prévu pour demain.</div>
+<div class="btnrow"><button class="btn" id="nextPrompt">Another prompt</button><button class="btn secondary" id="copyPrompt">Copy prompt</button></div>
+<label class="label">AI tutor instruction</label><textarea id="tutorText" readonly>You are my French conversation partner. My current level is approximately A2. Speak primarily in French, ask one question at a time, and let me finish before correcting me. At the end, give me three important corrections, five useful expressions, and one short challenge. Gradually increase the difficulty as I improve.</textarea>
+<button class="btn secondary" id="copyTutor">Copy AI tutor instructions</button>
+</div>
+<div class="card"><h3>Speaking session log</h3><p class="muted">Track real speaking practice, not just time spent thinking about French.</p>
+<label class="label">What did you talk about?</label><input class="input" id="speakTopic" placeholder="e.g. My studies and career plans">
+<label class="label">Minutes spoken</label><input class="input" id="speakMinutes" type="number" min="1" placeholder="e.g. 12">
+<label class="label">One thing to improve</label><input class="input" id="speakImprove" placeholder="e.g. Past tense / pronunciation">
+<button class="btn" id="saveSpeaking">Save speaking session</button>
+<div id="speakRecent" class="empty">Your speaking sessions will appear here.</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="vocab">
+<div class="sectionhead"><div><div class="eyebrow">Personal phrasebook</div><h2>Collect language worth keeping.</h2><p>Save expressions in context. Whole phrases are more useful than isolated translations.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Add an expression</h3>
+<label class="label">French expression</label><input class="input" id="wordFR" placeholder="Je me rends compte que...">
+<label class="label">Meaning</label><input class="input" id="wordEN" placeholder="I realize that...">
+<label class="label">Your example sentence</label><textarea id="wordExample" placeholder="Je me rends compte que je dois pratiquer chaque jour."></textarea>
+<label class="label">Source</label><select class="input" id="wordSource"><option>TV5MONDE</option><option>Video / podcast</option><option>Conversation</option><option>Duolingo</option><option>Other</option></select>
+<button class="btn" id="saveWord">Save expression</button>
+</div>
+<div class="card"><h3>Your phrasebook <span class="muted" id="wordCount">0 expressions</span></h3><div id="wordList" class="empty">Your saved expressions will appear here.</div></div>
+</div>
+</section>
+
+<section class="section" id="roadmap">
+<div class="sectionhead"><div><div class="eyebrow">Long-term direction</div><h2>From A2 toward B2.</h2><p>Move forward when your abilities are ready, not just when a calendar says so.</p></div></div>
+<div class="road">
+<div class="phase current"><div class="eyebrow">Current focus</div><div class="level">A2</div><h3>Build the base</h3><ul><li>Everyday conversations</li><li>Past, present and future</li><li>Clear, slow speech</li><li>Short connected writing</li></ul><p><strong>Ready to progress when:</strong> you can discuss familiar topics and understand the main points of clear everyday audio.</p></div>
+<div class="phase"><div class="eyebrow">Next milestone</div><div class="level">B1</div><h3>Become independent</h3><ul><li>Longer conversations</li><li>Explain opinions</li><li>Follow learner podcasts</li><li>Read articles on familiar topics</li></ul><p><strong>Ready to progress when:</strong> you can manage most familiar situations and explain experiences and viewpoints.</p></div>
+<div class="phase"><div class="eyebrow">Advanced development</div><div class="level">B1+</div><h3>Build range</h3><ul><li>Native interviews</li><li>Abstract topics</li><li>Quebec French exposure</li><li>Structured arguments</li></ul><p><strong>Focus:</strong> reduce dependence on subtitles and become more precise and spontaneous.</p></div>
+<div class="phase"><div class="eyebrow">Target</div><div class="level">B2</div><h3>Confident use</h3><ul><li>Complex discussions</li><li>Professional communication</li><li>Extended listening</li><li>Detailed writing</li></ul><p><strong>Target ability:</strong> interact with reasonable fluency and spontaneity across a broad range of subjects.</p></div>
+</div>
+<div class="notice">At 20 minutes per day, expect this to be a multi-year project. Use CEFR skill descriptors to assess listening, reading, spoken interaction, spoken production and writing separately. A completed lesson or app streak is not proof of a CEFR level.</div>
+<div class="card" style="margin-top:16px"><h3>Recommended progression of resources</h3><div class="activity"><div><strong>A2 · TV5MONDE + clear learner videos</strong><small>Build comprehension with subtitles and repeated listening.</small></div></div><div class="activity"><div><strong>A2 → B1 · InnerFrench</strong><small>Introduce slower, learner-oriented native-style discussions when understandable.</small></div></div><div class="activity"><div><strong>B1 · Radio-Canada and Easy French</strong><small>Increase exposure to spontaneous speech and Quebec accents.</small></div></div><div class="activity"><div><strong>B1 → B2 · Native interviews, news and longer reading</strong><small>Practise nuance, argumentation and professional topics.</small></div></div><div class="btnrow"><a class="link" href="https://apprendre.tv5monde.com/" target="_blank">TV5MONDE ↗</a><a class="link" href="https://innerfrench.com/" target="_blank">InnerFrench ↗</a><a class="link" href="https://ici.radio-canada.ca/" target="_blank">Radio-Canada ↗</a><a class="link" href="https://europass.europa.eu/en/common-european-framework-reference-languages-self-assessment-grid" target="_blank">CEFR self-assessment ↗</a></div></div>
+</section>
+
+<section class="section" id="history">
+<div class="sectionhead"><div><div class="eyebrow">Your effort, made visible</div><h2>Progress over time.</h2><p>Measure consistency and real practice. Don't confuse streaks with proficiency.</p></div><button class="btn secondary" id="exportData">Export my data</button></div>
+<div class="grid">
+<div class="card"><h3>Learning totals</h3><div class="metricrow"><span>Total minutes</span><strong id="histMinutes">0</strong></div><div class="metricrow"><span>Duolingo days logged</span><strong id="histDuo">0</strong></div><div class="metricrow"><span>TV5MONDE lessons</span><strong id="histTV">0</strong></div><div class="metricrow"><span>Speaking sessions</span><strong id="histSpeak">0</strong></div><div class="metricrow"><span>Saved expressions</span><strong id="histWords">0</strong></div></div>
+<div class="card"><h3>Recent activity</h3><div id="activityHistory" class="empty">Your activity will appear here as you log it.</div></div>
+</div>
+<div class="btnrow"><button class="btn secondary" id="importData">Import backup</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn secondary" id="resetAll">Reset all data</button></div>
+<p class="muted">Your information is stored in this browser on this device. Export a backup before changing phones or browsers. This version does not sync automatically between devices.</p>
+</section>
+</main>
+<footer class="footer"><span>FRANÇAIS · A PERSONAL IMMERSION JOURNAL</span><span>Small, consistent contact with French adds up.</span></footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='francaisImmersion_v1';
+const blank=()=>({logs:[],duo:{},tv:[],speaking:[],words:[],checks:{},mode:'light'});
+let data=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||blank()}catch(e){return blank()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function today(){let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function toast(s){let el=document.getElementById('toast');el.textContent=s;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)}
+function addLog(type,minutes,detail){data.logs.push({date:today(),type,minutes:Number(minutes)||0,detail:detail||''});}
+const modes={
+light:{title:'Light day',time:'5–10 minutes',tasks:[['Duolingo','Complete your daily lesson. Log it in the Duolingo panel.'],['TV5MONDE listening','Do one short A2 listening exercise. Focus on the overall meaning.']]},
+standard:{title:'Standard day',time:'About 20 minutes',tasks:[['Duolingo','5–7 minutes of grammar and vocabulary.'],['TV5MONDE lesson','8–10 minutes: listen, answer, check transcript, replay.'],['Active recall','3–5 minutes: say or write a few sentences using new expressions.']]},
+intensive:{title:'Intensive day',time:'30–45 minutes',tasks:[['Duolingo','5–7 minutes of grammar and vocabulary.'],['TV5MONDE or curated video','10–15 minutes of focused listening and transcript review.'],['Speaking','10–15 minutes of AI or human conversation.'],['Review','5 minutes: note corrections and save useful phrases.']]}
+};
+function renderTasks(){let m=modes[data.mode];document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('selected',b.dataset.mode===data.mode));document.getElementById('modeTitle').textContent=m.title;document.getElementById('modeTime').textContent=m.time;document.getElementById('tasks').innerHTML=m.tasks.map((t,i)=>`<label class="activity"><input type="checkbox" data-task="${i}" ${data.checks[data.mode+'-'+i]?'checked':''}><span><strong>${t[0]}</strong><small>${t[1]}</small></span></label>`).join('')}
+function render(){
+renderTasks();
+let total=data.logs.reduce((a,x)=>a+x.minutes,0);document.getElementById('totalMinutes').textContent=total;document.getElementById('histMinutes').textContent=total;
+let dates=[...new Set(data.logs.map(x=>x.date).concat(Object.keys(data.duo).filter(k=>data.duo[k])))].sort().reverse();let streak=0,cur=new Date();for(let i=0;i<dates.length;i++){let ds=cur.getFullYear()+'-'+String(cur.getMonth()+1).padStart(2,'0')+'-'+String(cur.getDate()).padStart(2,'0');if(dates.includes(ds)){streak++;cur.setDate(cur.getDate()-1)}else if(i===0){cur.setDate(cur.getDate()-1);let y=cur.getFullYear()+'-'+String(cur.getMonth()+1).padStart(2,'0')+'-'+String(cur.getDate()).padStart(2,'0');if(dates.includes(y)){streak++;cur.setDate(cur.getDate()-1)}else break}else break}document.getElementById('streak').textContent=streak;
+let duoDays=Object.values(data.duo).filter(Boolean).length;document.getElementById('histDuo').textContent=duoDays;document.getElementById('duoStatus').textContent=data.duo[today()]?'Logged today':'Not logged';document.getElementById('duoBar').style.width=data.duo[today()]?'100%':'0%';
+document.getElementById('histTV').textContent=data.tv.length;document.getElementById('histSpeak').textContent=data.speaking.length;document.getElementById('histWords').textContent=data.words.length;document.getElementById('wordCount').textContent=data.words.length+' expressions';
+document.getElementById('tvRecent').innerHTML=data.tv.length?data.tv.slice(-3).reverse().map(x=>`<div class="activity"><div><strong>${esc(x.title||'Untitled lesson')} · ${esc(x.level)}</strong><small>${esc(x.difficulty)} · ${x.minutes} min · ${x.date}</small></div></div>`).join(''):'<div class="empty">Your saved lessons will appear here.</div>';
+document.getElementById('speakRecent').innerHTML=data.speaking.length?data.speaking.slice(-3).reverse().map(x=>`<div class="activity"><div><strong>${esc(x.topic||'Conversation')} · ${x.minutes} min</strong><small>${esc(x.improve||'No note')} · ${x.date}</small></div></div>`).join(''):'<div class="empty">Your speaking sessions will appear here.</div>';
+document.getElementById('wordList').innerHTML=data.words.length?data.words.slice().reverse().map((w,i)=>`<div class="word"><div><strong>${esc(w.fr)}</strong><div class="muted">${esc(w.en)}</div>${w.example?`<small>${esc(w.example)}</small>`:''}<div class="muted">${esc(w.source)}</div></div><button class="pill" data-deleteword="${data.words.length-1-i}">Delete</button></div>`).join(''):'<div class="empty">Your saved expressions will appear here.</div>';
+document.getElementById('activityHistory').innerHTML=data.logs.length?data.logs.slice(-12).reverse().map(x=>`<div class="activity"><div><strong>${esc(x.type)} · ${x.minutes} min</strong><small>${esc(x.detail)} ${x.date}</small></div></div>`).join(''):'<div class="empty">Your activity will appear here as you log it.</div>';
+}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));window.scrollTo({top:0,behavior:'smooth'})}));
+document.getElementById('modes').addEventListener('click',e=>{let b=e.target.closest('[data-mode]');if(!b)return;data.mode=b.dataset.mode;save()});
+document.getElementById('tasks').addEventListener('change',e=>{if(e.target.dataset.task!==undefined){data.checks[data.mode+'-'+e.target.dataset.task]=e.target.checked;localStorage.setItem(KEY,JSON.stringify(data))}});
+document.getElementById('finishSession').onclick=()=>{let m=modes[data.mode],n=m.tasks.filter((_,i)=>data.checks[data.mode+'-'+i]).length;if(!n){toast('Check an activity first.');return}let mins=data.mode==='light'?8:data.mode==='standard'?20:38;addLog(data.mode+' session',mins,n+' of '+m.tasks.length+' activities checked');save();toast('Session logged.')};
+document.getElementById('clearChecks').onclick=()=>{Object.keys(data.checks).filter(k=>k.startsWith(data.mode+'-')).forEach(k=>delete data.checks[k]);save()};
+document.getElementById('logDuo').onclick=()=>{let m=Number(document.getElementById('duoMinutes').value)||5;data.duo[today()]=true;addLog('Duolingo',m,'Daily lesson');save();toast('Duolingo logged.')};
+document.getElementById('quickLog').onclick=()=>{let m=Number(document.getElementById('quickMinutes').value);if(!m){toast('Enter the minutes first.');return}let t=document.getElementById('quickType').value;addLog(t,m,'Independent activity');save();document.getElementById('quickMinutes').value='';toast('Activity added.')};
+document.getElementById('saveTV').onclick=()=>{let title=document.getElementById('tvTitle').value,minutes=Number(document.getElementById('tvMinutes').value)||10;data.tv.push({title,level:document.getElementById('tvLevel').value,difficulty:document.getElementById('tvDifficulty').value,expressions:document.getElementById('tvExpressions').value,minutes,date:today()});addLog('TV5MONDE',minutes,title);save();['tvTitle','tvExpressions','tvMinutes'].forEach(id=>document.getElementById(id).value='');toast('Lesson saved.')};
+const prompts={A2:['Raconte-moi ce que tu as fait hier et ce que tu as prévu pour demain.','Décris ton quartier. Qu’est-ce que tu aimes et qu’est-ce que tu voudrais changer ?','Parle-moi d’un film, d’une série ou d’un livre que tu as aimé.','Qu’est-ce que tu fais pour rester en bonne santé ?','Décris une journée idéale pour toi.'],B1:['Penses-tu que les réseaux sociaux rapprochent les gens ou les isolent ? Pourquoi ?','Raconte une décision difficile que tu as prise et explique ses conséquences.','Quels sont les avantages et les inconvénients du télétravail ?','Comment la technologie transforme-t-elle notre façon d’apprendre ?','Si tu pouvais changer une chose dans ton système éducatif, que changerais-tu ?'],B2:['Dans quelle mesure l’intelligence artificielle risque-t-elle de transformer le marché du travail ?','Le bilinguisme devrait-il être une exigence pour certains emplois au Canada ? Défends ton point de vue.','La croissance économique est-elle toujours compatible avec la protection de l’environnement ?','Comment distinguer la liberté individuelle de la responsabilité collective ?','Les études universitaires préparent-elles suffisamment les jeunes au monde professionnel ?']};
+let level='A2',pidx=0;function showPrompt(){document.getElementById('promptBox').textContent=prompts[level][pidx%prompts[level].length]}document.getElementById('promptLevels').onclick=e=>{let b=e.target.closest('[data-level]');if(!b)return;level=b.dataset.level;pidx=0;document.querySelectorAll('[data-level]').forEach(x=>x.classList.toggle('selected',x===b));showPrompt()};document.getElementById('nextPrompt').onclick=()=>{pidx++;showPrompt()};document.getElementById('copyPrompt').onclick=()=>copy(document.getElementById('promptBox').textContent);document.getElementById('copyTutor').onclick=()=>copy(document.getElementById('tutorText').value);
+async function copy(t){try{await navigator.clipboard.writeText(t);toast('Copied to clipboard.')}catch(e){toast('Select and copy the text manually.')}} 
+document.getElementById('saveSpeaking').onclick=()=>{let minutes=Number(document.getElementById('speakMinutes').value);if(!minutes){toast('Enter speaking minutes.');return}let x={topic:document.getElementById('speakTopic').value,minutes,improve:document.getElementById('speakImprove').value,date:today()};data.speaking.push(x);addLog('Speaking',minutes,x.topic);save();['speakTopic','speakMinutes','speakImprove'].forEach(id=>document.getElementById(id).value='');toast('Speaking session saved.')};
+document.getElementById('saveWord').onclick=()=>{let fr=document.getElementById('wordFR').value.trim(),en=document.getElementById('wordEN').value.trim();if(!fr||!en){toast('Add the expression and its meaning.');return}data.words.push({fr,en,example:document.getElementById('wordExample').value,source:document.getElementById('wordSource').value});save();['wordFR','wordEN','wordExample'].forEach(id=>document.getElementById(id).value='');toast('Expression saved.')};
+document.getElementById('wordList').onclick=e=>{let b=e.target.closest('[data-deleteword]');if(!b)return;data.words.splice(Number(b.dataset.deleteword),1);save()};
+document.getElementById('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='francais-backup.json';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('importData').onclick=()=>document.getElementById('importFile').click();document.getElementById('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!x.logs||!x.words)throw Error();data=x;save();toast('Backup imported.')}catch(err){toast('That backup file could not be read.')}};
+document.getElementById('resetAll').onclick=()=>{if(confirm('Delete all French tracker data from this browser? Export a backup first if you want to keep it.')){data=blank();save();toast('Tracker reset.')}};
+render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
