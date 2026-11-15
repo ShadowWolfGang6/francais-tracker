@@ -1,14 +1,10 @@
 # Français — Immersion Tracker
 
-A mobile-friendly, static French-learning planner.
+A mobile-friendly French-learning planner with account-based progress sync.
 
-## Publish free with GitHub Pages
-1. Create a free GitHub account if you do not already have one.
-2. Create a new **public** repository, for example `francais-tracker`.
-3. Upload `index.html`, `manifest.webmanifest`, and `sw.js` to the repository root.
-4. Open **Settings → Pages**.
-5. Under Build and deployment, choose **Deploy from a branch**, select `main` and `/ (root)`, then Save.
-6. GitHub will provide a URL like `https://YOUR-USERNAME.github.io/francais-tracker/`.
+## Live tracker
+
+[Open the tracker](https://shadowwolfgang6.github.io/francais-tracker/). The deployment workflow publishes the frontend from `main` to GitHub Pages.
 
 ## Add to iPhone Home Screen
 1. Open the published URL in Safari.
@@ -17,7 +13,7 @@ A mobile-friendly, static French-learning planner.
 4. Name it Français and tap Add.
 
 ## Data and privacy
-Your entries are saved in browser localStorage on the device/browser you use. They are not uploaded to a server and do not automatically sync between devices. Use **Progress → Export my data** to make backups. Import a backup on another device if needed.
+Sign in with your own ChatGPT account to save progress across devices. To bring in progress from the earlier tracker, open **Progress → Import old progress from this browser** on the device where you used it. You can also export and import JSON backups from **Progress**.
 
 ## Features
 - Flexible light, standard and intensive sessions
@@ -28,4 +24,4 @@ Your entries are saved in browser localStorage on the device/browser you use. Th
 - Personal vocabulary notebook
 - A1–B2 roadmap
 - Progress totals, streak and JSON export/import
-- Responsive mobile layout and basic offline caching
+- Responsive mobile layout

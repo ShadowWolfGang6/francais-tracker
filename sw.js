@@ -1,1 +1,8 @@
-const CACHE='francais-tracker-v1';const ASSETS=['./','./index.html','./manifest.webmanifest'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
+self.addEventListener('install', () => self.skipWaiting());
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    await caches.delete('francais-tracker-v1');
+    await self.clients.claim();
+    await self.registration.unregister();
+  })());
+});
