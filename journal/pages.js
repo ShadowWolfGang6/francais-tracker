@@ -10,6 +10,16 @@ const signOut = document.getElementById('pagesSignOut');
 const status = document.getElementById('pagesStatus');
 let session;
 
+async function retireLegacyHomepage() {
+  const oldWorker = new URL('./sw.js', location.href).href;
+  if ('serviceWorker' in navigator) {
+    const registration = await navigator.serviceWorker.getRegistration(location.href);
+    if ([registration?.active, registration?.waiting, registration?.installing]
+      .some(worker => worker?.scriptURL === oldWorker)) await registration.unregister();
+  }
+  if ('caches' in window) await caches.delete('francais-tracker-v1');
+}
+
 function base64Url(bytes) {
   return btoa(String.fromCharCode(...bytes)).replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/, '');
 }
@@ -91,6 +101,8 @@ async function completeSignIn(params) {
 
 async function open() {
   const params = new URLSearchParams(location.hash.slice(1));
+  const wantsSignIn = new URLSearchParams(location.search).get('signin') === '1';
+  if (wantsSignIn && !params.has('tracker_auth')) return showSignIn();
   try {
     if (params.has('tracker_auth')) {
       status.textContent = 'Finishing sign-in…';
@@ -130,4 +142,5 @@ async function open() {
 addEventListener('storage', event => {
   if (event.key === sessionKey) location.reload();
 });
+retireLegacyHomepage().catch(() => {});
 open();
