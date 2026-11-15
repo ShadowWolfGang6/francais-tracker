@@ -24,6 +24,7 @@ const modes = {
 };
 let activeMode = 'signin';
 let verificationToken;
+let emailSession;
 let authenticatedOwner;
 let accessToken;
 let client;
@@ -194,8 +195,11 @@ form.onsubmit = async event => {
       case 'confirm':
       case 'recovery': {
         const type = mode === 'confirm' ? 'email' : 'recovery';
-        const { session } = checked(await client.auth.verifyOtp({ token_hash: verificationToken, type }));
+        const { session } = checked(emailSession
+          ? await client.auth.setSession(emailSession)
+          : await client.auth.verifyOtp({ token_hash: verificationToken, type }));
         verificationToken = undefined;
+        emailSession = undefined;
         if (mode === 'recovery') {
           sessionStorage.setItem(recoveryKey, session.user.id);
           showMode('update');
@@ -223,11 +227,18 @@ form.onsubmit = async event => {
 async function start() {
   const params = new URLSearchParams(location.search);
   const callback = new URLSearchParams(location.hash.slice(1));
-  const emailAction = callback.get('auth');
-  if (callback.has('token_hash')) {
-    verificationToken = callback.get('token_hash');
+  const defaultType = callback.get('type');
+  const defaultAction = defaultType === 'recovery' ? 'recovery'
+    : ['signup', 'email'].includes(defaultType) ? 'confirm' : null;
+  const emailAction = callback.get('auth') || defaultAction;
+  const expiredEmail = callback.has('error_code');
+  const access = callback.get('access_token');
+  const refresh = callback.get('refresh_token');
+  if (expiredEmail || access || refresh || callback.has('token_hash')) {
     history.replaceState(null, '', location.pathname + location.search);
   }
+  if (callback.has('token_hash')) verificationToken = callback.get('token_hash');
+  else if (defaultAction && access && refresh) emailSession = { access_token: access, refresh_token: refresh };
   if (!/^https:\/\/[a-z0-9]+\.supabase\.co$/.test(supabaseConfig.projectUrl) ||
       !/^sb_publishable_[a-zA-Z0-9_-]+$/.test(supabaseConfig.publishableKey) || !window.supabase?.createClient) {
     say('Email sign-in is awaiting setup.');
@@ -249,7 +260,8 @@ async function start() {
   });
 
   try {
-    if (verificationToken && (emailAction === 'confirm' || emailAction === 'recovery')) return showMode(emailAction);
+    if (expiredEmail) return showMode('signin', 'This email link expired. Request a new one.', true);
+    if ((verificationToken || emailSession) && (emailAction === 'confirm' || emailAction === 'recovery')) return showMode(emailAction);
     if (emailAction === 'confirm' || emailAction === 'recovery') return showMode('signin', 'Open the original link in your email.', true);
     const { session } = checked(await client.auth.getSession());
     if (session && sessionStorage.getItem(recoveryKey) === session.user.id) return showMode('update');

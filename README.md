@@ -8,7 +8,7 @@ A mobile-friendly French-learning planner with private journals and progress syn
 
 1. Use a Supabase project you own. Apply the SQL in `supabase/migrations/20261115024151_tracker_journal.sql` using the project's SQL editor or migrations workflow. The migration exposes two authenticated RPCs and keeps the underlying journal tables in a private schema.
 2. In Authentication → URL Configuration, set the Site URL to `https://shadowwolfgang6.github.io/francais-tracker/`. Keep email sign-ups and email confirmation enabled. Set the minimum password length to 12.
-3. Use `supabase/templates/confirmation.html` for **Confirm signup** and `supabase/templates/recovery.html` for **Reset password** in Authentication → Email Templates.
+3. The default Supabase confirmation and reset emails work with the tracker’s Site URL. For tracker-specific emails, use the optional templates in `supabase/templates/`.
 4. Configure custom SMTP in Supabase with a verified sender and disable click tracking for the auth emails. Enter the SMTP credentials in Supabase. The default Supabase mailer delivers only to project-team addresses.
 5. Set `projectUrl` and `publishableKey` in `journal/supabase-config.js` using the HTTPS project URL and the public `sb_publishable_…` key. Check registration, confirmation, sign-in, and password reset with an external email address, then publish.
 6. With two test accounts, log progress in one and verify the other starts with an empty journal. Sign in to the first account in another browser to verify sync.
