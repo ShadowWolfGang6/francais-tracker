@@ -22,3 +22,15 @@
 .account-row #pagesSignOut{white-space:nowrap}
 .sign-in-hero #pagesStatus:empty{display:none}
 .sign-in-hero #pagesStatus{min-height:0;margin:0}
+
+.email-auth{grid-template-columns:minmax(0,1fr) minmax(280px,380px);align-items:center;gap:28px}
+.auth-card h2{font:30px var(--serif);margin:0 0 5px}
+.auth-card #authIntro,.auth-card .auth-status{margin:6px 0 14px}
+.auth-status:empty{display:none}.auth-status[data-error="true"]{color:#a04435}
+.auth-card #authSubmit{margin-top:3px}
+.auth-actions:not([hidden]){display:flex;flex-wrap:wrap;column-gap:10px;margin-top:4px}
+.auth-link{border:0;background:transparent;padding:0;text-align:left;min-height:44px}
+.auth-link[hidden]{display:none}
+.auth-card .auth-legacy{border-top:1px solid var(--line);margin:10px 0 0;padding-top:10px}
+.auth-card .auth-legacy .link{min-height:32px}
+@media(max-width:720px){.email-auth{grid-template-columns:1fr;min-height:0;align-items:start;gap:18px}.auth-card{max-width:440px;width:100%}}

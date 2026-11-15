@@ -1,21 +1,13 @@
 const batchSize = 24;
-let pagesTransport;
+let syncTransport;
 
-export function connectPagesJournal(transport) {
-  pagesTransport = transport;
+export function configureJournalSync(transport) {
+  syncTransport = transport;
 }
 
 export function openJournal(owner, onChange, onStatus) {
-  const account = encodeURIComponent(owner);
-  const endpoint = pagesTransport?.endpoint || './api/progress';
-  const credentials = pagesTransport ? 'omit' : 'same-origin';
-  function journalHeaders(input) {
-    const headers = new Headers(input);
-    headers.set('X-Journal-Account', account);
-    if (pagesTransport) headers.set('Authorization', 'Bearer ' + pagesTransport.token);
-    return headers;
-  }
-  const prefix = 'francais-journal-v2:' + account + ':';
+  const transport = syncTransport;
+  const prefix = 'francais-journal-supabase:' + encodeURIComponent(owner) + ':';
   const cacheKey = prefix + 'cache';
   const pendingPrefix = prefix + 'op:';
   const inMemory = new Map();
@@ -74,18 +66,11 @@ export function openJournal(owner, onChange, onStatus) {
     queue();
   }
 
-  async function request(path, options) {
+  async function request(operation, value) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      const response = await fetch(endpoint + path, { cache: 'no-store', credentials,
-        signal: controller.signal, ...options, headers: journalHeaders(options?.headers) });
-      if (response.status === 401 && pagesTransport) pagesTransport.onExpired();
-      if (response.status === 409) throw Object.assign(Error('Account changed · refresh this tab'), { status: 409 });
-      if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) {
-        throw Error(response.status === 401 || response.redirected ? 'Sign in again to sync' : 'Could not reach sync');
-      }
-      return await response.json();
+      return await transport[operation](value, controller.signal);
     } finally {
       clearTimeout(timeout);
     }
@@ -94,7 +79,7 @@ export function openJournal(owner, onChange, onStatus) {
   async function pull() {
     let more;
     do {
-      const { events, more: remainder } = await request('?after=' + snapshot.cursor);
+      const { events, more: remainder } = await request('pull', snapshot.cursor);
       for (const event of events) {
         snapshot.entries.set(event.key, event.value);
         snapshot.cursor = event.seq;
@@ -108,7 +93,7 @@ export function openJournal(owner, onChange, onStatus) {
     const sent = pending();
     for (let offset = 0; offset < sent.length; offset += batchSize) {
       const operations = sent.slice(offset, offset + batchSize).map(({ id, key, value }) => ({ id, key, value }));
-      await request('', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ operations }) });
+      await request('push', operations);
     }
     await pull();
     loadCache();
@@ -159,9 +144,7 @@ export function openJournal(owner, onChange, onStatus) {
   addEventListener('online', sync);
   addEventListener('pagehide', () => {
     const operations = pending().slice(0, 3).map(({ id, key, value }) => ({ id, key, value }));
-    if (operations.length) fetch(endpoint, { method: 'POST', credentials, keepalive: true,
-      headers: journalHeaders({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify({ operations }) }).catch(() => {});
+    if (operations.length) transport.flush(operations).catch(() => {});
   });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) { onChange(state()); sync(); } });
   setInterval(() => { if (!document.hidden) sync(); }, 8000);

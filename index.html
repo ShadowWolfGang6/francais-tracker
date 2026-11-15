@@ -4,10 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://francais-immersion-journal.twinchime8.chatgpt.site; style-src 'self' 'unsafe-inline'; base-uri 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://*.supabase.co; style-src 'self' 'unsafe-inline'; base-uri 'none'; object-src 'none'; form-action 'self'">
 <meta name="theme-color" content="#f5f1e8">
 <meta name="journal-owner" content="">
-<meta name="journal-service" content="https://francais-immersion-journal.twinchime8.chatgpt.site">
 <meta name="description" content="A flexible, editorial French immersion tracker from A1 to B2.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./journal/icon-192.png">
@@ -22,17 +21,36 @@
   <div class="brand">français.<small>THE IMMERSION JOURNAL</small></div>
   <div class="topright">A1 → B2 FRENCH PRACTICE</div>
 </header>
-<main class="hero sign-in-hero">
+<main class="hero sign-in-hero email-auth">
   <div>
     <h1>Make French part<br>of your everyday.</h1>
     <p>Plan your practice, save new expressions, and track your progress across devices.</p>
-    <div class="btnrow">
-      <button class="btn" id="pagesSignIn" disabled>Continue with ChatGPT</button>
-    </div>
-    <p class="sign-in-help">Use your own ChatGPT account to keep your journal private. You can create an account during sign-in.</p>
   </div>
-<p id="pagesStatus" class="sign-in-help" role="status">Checking sign-in…</p>
-  </main>
+  <section class="card auth-card" aria-labelledby="authTitle">
+    <h2 id="authTitle">Sign in</h2>
+    <p id="authIntro" class="muted">Open your French journal.</p>
+    <form id="authForm" hidden>
+      <div id="authEmailField">
+        <label class="label" for="authEmail">Email address</label>
+        <input class="input" id="authEmail" type="email" autocomplete="email" inputmode="email" maxlength="254" required>
+      </div>
+      <div id="authPasswordField">
+        <label class="label" for="authPassword">Password</label>
+        <input class="input" id="authPassword" type="password" autocomplete="current-password" required>
+        <p class="form-note" id="authPasswordHint" hidden>Use at least 12 characters.</p>
+      </div>
+      <button class="btn" id="authSubmit" type="submit">Sign in</button>
+    </form>
+    <p id="authStatus" class="muted auth-status" role="status" aria-live="polite">Checking sign-in…</p>
+    <div class="auth-actions" id="authActions" hidden>
+      <button class="link auth-link" type="button" data-auth-mode="signup">Create account</button>
+      <button class="link auth-link" type="button" data-auth-mode="forgot">Forgot password?</button>
+      <button class="link auth-link" type="button" data-auth-mode="resend">Resend verification email</button>
+      <button class="link auth-link" type="button" data-auth-mode="signin" hidden>Back to sign in</button>
+    </div>
+    <p class="muted auth-legacy">Already have a ChatGPT journal? <a class="link" href="https://francais-immersion-journal.twinchime8.chatgpt.site/" target="_blank" rel="noopener">Open it to export your progress</a></p>
+  </section>
+</main>
 </div>
 <div class="shell" id="pagesJournal" hidden>
 <header class="top"><div class="brand">français.<small>THE IMMERSION JOURNAL</small></div><div class="topright">A PERSONAL A1 → B2 PRACTICE SYSTEM
@@ -149,12 +167,13 @@
 <div class="card"><h3>Learning totals</h3><div class="metricrow"><span>Last 7 days</span><strong id="weekMinutes">0 min</strong></div><div class="minute-bars" id="weekBars" aria-label="Minutes logged each day over the past week"></div><div class="metricrow"><span>Total minutes</span><strong id="histMinutes">0</strong></div><div class="metricrow"><span>Duolingo days logged</span><strong id="histDuo">0</strong></div><div class="metricrow"><span>TV5MONDE lessons</span><strong id="histTV">0</strong></div><div class="metricrow"><span>Speaking sessions</span><strong id="histSpeak">0</strong></div><div class="metricrow"><span>Saved expressions</span><strong id="histWords">0</strong></div><div class="metricrow"><span>Planner sessions logged</span><strong id="histSessions">0</strong></div><div class="metricrow"><span>Speaking minutes</span><strong id="histSpeakingMinutes">0</strong></div><div class="metricrow"><span>TV5MONDE minutes</span><strong id="histTVMinutes">0</strong></div></div>
 <div class="card"><h3>Activity journal</h3><label class="label" for="historyFilter">Filter by activity</label><select id="historyFilter" class="input"><option value="">All activities</option></select><div id="activityHistory" class="empty">Your activity will appear here as you log it.</div></div>
 </div>
-<div class="card archive"><h3>Sync and backups</h3><p class="muted">Open this journal with the same ChatGPT account on each device. If this browser contains your old tracker progress, you can import it below.</p>
+<div class="card archive"><h3>Sync and backups</h3><p class="muted">Sign in with the same email account on each device. If this browser contains your old tracker progress, you can import it below.</p>
 <div class="btnrow"><button class="btn secondary" id="syncNow">Sync now</button><button class="btn secondary" id="importData">Import backup</button><button class="btn secondary" id="importLegacy" hidden>Import old progress from this browser</button><input type="file" id="importFile" accept=".json,application/json" hidden><button class="btn secondary" id="resetAll">Reset journal</button></div></div>
 </section>
 </main>
 <footer class="footer"><span>FRANÇAIS · A PERSONAL IMMERSION JOURNAL</span><span>Small, consistent contact with French adds up.</span></footer>
 </div>
 <div class="toast" id="toast" role="status"></div>
+<script defer src="./journal/vendor/supabase-2.119.0.js"></script>
 <script type="module" src="./journal/pages.js"></script>
 </body></html>

@@ -1,27 +1,28 @@
 # Français — Immersion Tracker
 
-A mobile-friendly French-learning planner with account-based progress sync.
+A mobile-friendly French-learning planner with private journals and progress sync. The GitHub Pages workflow publishes the frontend from `main`.
 
-## Live tracker
+[Open the tracker](https://shadowwolfgang6.github.io/francais-tracker/).
 
-[Open the tracker](https://shadowwolfgang6.github.io/francais-tracker/). The deployment workflow publishes the frontend from `main` to GitHub Pages.
+## Set up the email accounts
+
+1. Use a Supabase project you own. Apply the SQL in `supabase/migrations/20261115024151_tracker_journal.sql` using the project's SQL editor or migrations workflow. The migration exposes two authenticated RPCs and keeps the underlying journal tables in a private schema.
+2. In Authentication → URL Configuration, set the Site URL to `https://shadowwolfgang6.github.io/francais-tracker/`. Keep email sign-ups and email confirmation enabled. Set the minimum password length to 12.
+3. Use `supabase/templates/confirmation.html` for **Confirm signup** and `supabase/templates/recovery.html` for **Reset password** in Authentication → Email Templates.
+4. Configure custom SMTP in Supabase with a verified sender and disable click tracking for the auth emails. Enter the SMTP credentials in Supabase. The default Supabase mailer delivers only to project-team addresses.
+5. Set `projectUrl` and `publishableKey` in `journal/supabase-config.js` using the HTTPS project URL and the public `sb_publishable_…` key. Check registration, confirmation, sign-in, and password reset with an external email address, then publish.
+6. With two test accounts, log progress in one and verify the other starts with an empty journal. Sign in to the first account in another browser to verify sync.
+
+[Supabase password authentication](https://supabase.com/docs/guides/auth/passwords) · [Custom SMTP](https://supabase.com/docs/guides/auth/auth-smtp).
+
+## Carry over progress
+
+For a journal previously synced through ChatGPT, open the earlier journal, choose **Progress → Export my data**, then sign into the new email account and choose **Progress → Import backup**. For progress from the browser-only tracker, use **Import old progress from this browser** on the device where you logged it.
 
 ## Add to iPhone Home Screen
-1. Open the published URL in Safari.
-2. Tap Share.
-3. Choose **Add to Home Screen**.
-4. Name it Français and tap Add.
 
-## Data and privacy
-Sign in with your own ChatGPT account to save progress across devices. To bring in progress from the earlier tracker, open **Progress → Import old progress from this browser** on the device where you used it. You can also export and import JSON backups from **Progress**.
+Open the tracker in Safari, tap Share, and choose **Add to Home Screen**.
 
-## Features
-- Flexible light, standard and intensive sessions
-- Daily Duolingo logging
-- TV5MONDE five-step lesson workflow and lesson log
-- AI speaking prompts at A2, B1 and B2
-- Speaking session log
-- Personal vocabulary notebook
-- A1–B2 roadmap
-- Progress totals, streak and JSON export/import
-- Responsive mobile layout
+## Frontend
+
+`journal/vendor/supabase-2.119.0.js` is the browser bundle from `@supabase/supabase-js` 2.119.0. Its license is in the same directory.
