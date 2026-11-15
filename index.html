@@ -7,12 +7,13 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://*.supabase.co; style-src 'self' 'unsafe-inline'; base-uri 'none'; object-src 'none'; form-action 'self'">
 <meta name="theme-color" content="#f5f1e8">
 <meta name="journal-owner" content="">
+<meta name="journal-auth-provider" content="supabase">
 <meta name="description" content="A flexible, editorial French immersion tracker from A1 to B2.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./journal/icon-192.png">
 <link rel="apple-touch-icon" href="./journal/icon-192.png">
 <title>Français — Immersion Tracker</title>
-<link rel="stylesheet" href="./journal/journal.css">
+<link rel="stylesheet" href="./journal/journal.css?v=email-accounts">
 </head>
 <body>
 
@@ -175,5 +176,5 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 <script defer src="./journal/vendor/supabase-2.119.0.js"></script>
-<script type="module" src="./journal/pages.js"></script>
+<script type="module" src="./journal/pages-email.js"></script>
 </body></html>

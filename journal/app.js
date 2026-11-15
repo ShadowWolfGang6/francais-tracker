@@ -1,6 +1,7 @@
 import { modes, phases, prompts, workflow } from './content.js';
 import { backupChanges, dayFormat, httpUrl, journalEntries, readBackup, shiftDay, streak, text } from './data.js';
-import { openJournal } from './sync.js';
+const { openJournal } = await import(document.querySelector('[name="journal-auth-provider"]')?.content === 'supabase'
+  ? './sync.js?v=email-accounts' : './sync.js');
 
 const $ = id => document.getElementById(id);
 const all = selector => [...document.querySelectorAll(selector)];

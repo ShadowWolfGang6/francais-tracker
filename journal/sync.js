@@ -5,9 +5,39 @@ export function configureJournalSync(transport) {
   syncTransport = transport;
 }
 
+// The older homepage can still be open in a browser during a GitHub Pages deployment.
+export function connectPagesJournal({ endpoint, token, onExpired }) {
+  const credentials = 'omit';
+  function headers(owner, json = false) {
+    return {
+      'X-Journal-Account': encodeURIComponent(owner),
+      Authorization: 'Bearer ' + token,
+      ...(json ? { 'Content-Type': 'application/json' } : {})
+    };
+  }
+  async function api(path, options) {
+    const response = await fetch(endpoint + path, { cache: 'no-store', credentials, ...options });
+    if (response.status === 401) onExpired();
+    if (response.status === 409) throw Object.assign(Error('Account changed · refresh this tab'), { status: 409 });
+    if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) {
+      throw Error(response.status === 401 || response.redirected ? 'Sign in again to sync' : 'Could not reach sync');
+    }
+    return response.json();
+  }
+  function writeOptions(owner, operations) {
+    return { method: 'POST', headers: headers(owner, true), body: JSON.stringify({ operations }) };
+  }
+  configureJournalSync({
+    namespace: 'francais-journal-v2',
+    pull: (cursor, signal, owner) => api('?after=' + cursor, { signal, headers: headers(owner) }),
+    push: (operations, signal, owner) => api('', { ...writeOptions(owner, operations), signal }),
+    flush: (operations, owner) => fetch(endpoint, { ...writeOptions(owner, operations), credentials, keepalive: true })
+  });
+}
+
 export function openJournal(owner, onChange, onStatus) {
   const transport = syncTransport;
-  const prefix = 'francais-journal-supabase:' + encodeURIComponent(owner) + ':';
+  const prefix = (transport.namespace || 'francais-journal-supabase') + ':' + encodeURIComponent(owner) + ':';
   const cacheKey = prefix + 'cache';
   const pendingPrefix = prefix + 'op:';
   const inMemory = new Map();
@@ -70,7 +100,7 @@ export function openJournal(owner, onChange, onStatus) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      return await transport[operation](value, controller.signal);
+      return await transport[operation](value, controller.signal, owner);
     } finally {
       clearTimeout(timeout);
     }
@@ -144,7 +174,7 @@ export function openJournal(owner, onChange, onStatus) {
   addEventListener('online', sync);
   addEventListener('pagehide', () => {
     const operations = pending().slice(0, 3).map(({ id, key, value }) => ({ id, key, value }));
-    if (operations.length) transport.flush(operations).catch(() => {});
+    if (operations.length) transport.flush(operations, owner).catch(() => {});
   });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) { onChange(state()); sync(); } });
   setInterval(() => { if (!document.hidden) sync(); }, 8000);
